@@ -11,6 +11,12 @@ const qualityType = {
   2: 'unknown'
 };
 
+const testType = {
+  0: 'test1',
+  1: 'test2',
+  2: 'test3'
+};
+
 function addProducts(quantity) {
   const startId = products.length;
   const startDate = new Date(2015, 0, 1);
@@ -22,6 +28,7 @@ function addProducts(quantity) {
       id: id,
       name: 'Item name ' + id,
       quality: i % 3,
+      test: i % 3,
       price: Math.floor((Math.random() * 100) + 1),
       inStockDate: date
     });
@@ -73,6 +80,7 @@ export default class FilterStyle extends React.Component {
         </TableHeaderColumn>
         <TableHeaderColumn ref='name1' dataField='name' filter={ { type: 'TextFilter', style: nameFilterStyle } }>Product Name</TableHeaderColumn>
         <TableHeaderColumn ref='quality' dataField='quality' filter={ { type: 'SelectFilter', options: qualityType, style: qualityFilterStyle } } dataFormat={ enumFormatter } formatExtraData={ qualityType }>Product Quality</TableHeaderColumn>
+        <TableHeaderColumn ref='test' dataField='test' filter={ { type: 'SelectFilter', options: testType, style: qualityFilterStyle } } dataFormat={ enumFormatter } formatExtraData={ testType }>Product Test</TableHeaderColumn>
         <TableHeaderColumn ref='price' dataField='price' filter={ { type: 'NumberFilter', delay: 1000, style: priceFilterStyle } }>Product Price</TableHeaderColumn>
         <TableHeaderColumn ref='inStockDate' dataField='inStockDate' filter={ { type: 'DateFilter', style: dateFilterStyle } } dataFormat={ dateFormatter }>In Stock From</TableHeaderColumn>
       </BootstrapTable>
