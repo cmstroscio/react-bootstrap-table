@@ -239,12 +239,12 @@ class TableBody extends Component {
       <div ref='container'
         className={ classSet('react-bs-container-body', this.props.bodyContainerClass) }
         style={ this.props.style }>
-        <table className={ tableClasses }>
+        <div className={ tableClasses }>
           { React.cloneElement(tableHeader, { ref: 'header' }) }
-          <tbody ref='tbody'>
+          <div ref='tbody'>
             { tableRows }
-          </tbody>
-        </table>
+          </div>
+        </div>
       </div>
     );
   }

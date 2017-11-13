@@ -35,7 +35,7 @@ function addProducts(quantity) {
   }
 }
 
-addProducts(5);
+addProducts(70);
 
 function enumFormatter(cell, row, enumObject) {
   return enumObject[cell];
@@ -74,7 +74,7 @@ const dateFilterStyle = {
 export default class FilterStyle extends React.Component {
   render() {
     return (
-      <BootstrapTable ref='table' data={ products }>
+      <BootstrapTable ref='table' pagination data={ products }>
         <TableHeaderColumn dataField='id' isKey={ true }>
           Product ID
         </TableHeaderColumn>

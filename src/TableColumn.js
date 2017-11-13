@@ -155,12 +155,12 @@ class TableColumn extends Component {
     const attr = {};
     if (!withoutTabIndex) attr.tabIndex = tabIndex;
     return (
-      <td { ...attr } style={ tdStyle }
+      <section { ...attr } style={ tdStyle }
           title={ columnTitle }
           className={ className }
           { ...opts } { ...attrs }>
         { typeof children === 'boolean' ? children.toString() : children }
-      </td>
+      </section>
     );
   }
 }

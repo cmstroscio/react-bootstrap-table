@@ -106,11 +106,11 @@ class TableRow extends Component {
     };
 
     return (
-      <tr { ...trCss }
+      <div { ...trCss }
           onMouseOver={ this.rowMouseOver }
           onMouseOut={ this.rowMouseOut }
           onClick={ this.rowClick }
-          onDoubleClick={ this.rowDoubleClick }>{ this.props.children }</tr>
+          onDoubleClick={ this.rowDoubleClick }>{ this.props.children }</div>
     );
   }
 }

@@ -106,12 +106,12 @@ class TableHeader extends Component {
 
     return (
       <div ref='container' className={ containerClasses } style={ this.props.style }>
-        <table className={ tableClasses }>
+        <div className={ tableClasses }>
           { React.cloneElement(this.props.colGroups, { ref: 'headerGrp' }) }
           <thead ref='header'>
             { trs }
           </thead>
-        </table>
+        </div>
       </div>
     );
   }
