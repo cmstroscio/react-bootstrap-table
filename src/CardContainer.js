@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Utils from './util';
 import Const from './Const';
-import TableRow from './TableRow';
-import TableColumn from './TableColumn';
+import CardWrapperHorizontal from './CardWrapperHorizontal';
+import CardWrapperVertical from './CardWrapperVertical';
 import TableEditColumn from './TableEditColumn';
 import classSet from 'classnames';
 import ExpandComponent from './ExpandComponent';
 
-class TableBody extends Component {
+class CardContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,9 +27,9 @@ class TableBody extends Component {
       if (Utils.isBootstrap4(version)) customTableClasses['table-sm'] = true;
       else customTableClasses['table-condensed'] = true;
     }
-    const tableClasses = classSet('table', customTableClasses, this.props.tableBodyClass);
+    const tableClasses = classSet('table', customTableClasses, this.props.CardContainerClass);
 
-    const noneditableRows = (cellEdit.nonEditableRows && cellEdit.nonEditableRows()) || [];
+    const nonediCardWrapperHorizontals = (cellEdit.nonEdiCardWrapperHorizontals && cellEdit.nonEdiCardWrapperHorizontals()) || [];
     const unselectable = this.props.selectRow.unselectable || [];
     const isSelectRowDefined = Utils.isSelectRowDefined(this.props.selectRow.mode);
     const tableHeader = Utils.renderColGroup(this.props.columns,
@@ -53,8 +53,8 @@ class TableBody extends Component {
       expandColSpan += 1;
     }
 
-    let tableRows = this.props.data.map(function(data, r) {
-      const tableColumns = this.props.columns.filter(_ => _ != null).map(function(column, i) {
+    let CardWrapperHorizontals = this.props.data.map(function(data, r) {
+      const CardWrapperVerticals = this.props.columns.filter(_ => _ != null).map(function(column, i) {
         const fieldValue = data[column.name];
         const isFocusCell = r === y && i === x;
         if (column.name !== this.props.keyField && // Key field can't be edit
@@ -63,7 +63,7 @@ class TableBody extends Component {
           this.state.currEditCell !== null &&
           this.state.currEditCell.rid === r &&
           this.state.currEditCell.cid === i &&
-          noneditableRows.indexOf(data[this.props.keyField]) === -1) {
+          nonediCardWrapperHorizontals.indexOf(data[this.props.keyField]) === -1) {
           let editable = column.editable;
           const format = column.format ? function(value) {
             return column.format(value, data, column.formatExtraData, r).replace(/<.*?>/g, '');
@@ -128,7 +128,7 @@ class TableBody extends Component {
             else if (fieldValue) columnTitle = fieldValue.toString();
           }
           return (
-            <TableColumn key={ i }
+            <CardWrapperVertical key={ i }
               cIndex={ i }
               rIndex={ r }
               dataAlign={ column.align }
@@ -149,7 +149,7 @@ class TableBody extends Component {
               row={ data }
               withoutTabIndex={ this.props.withoutTabIndex }>
               { columnChild }
-            </TableColumn>
+            </CardWrapperVertical>
           );
         }
       }, this);
@@ -176,7 +176,7 @@ class TableBody extends Component {
           this.props.expandParentClass(data, r) :
           this.props.expandParentClass;
       }
-      const result = [ <TableRow isSelected={ selected } key={ key } className={ trClassName }
+      const result = [ <CardWrapperHorizontal isSelected={ selected } key={ key } className={ trClassName }
         index={ r }
         row={ data }
         selectRow={ isSelectRowDefined ? this.props.selectRow : undefined }
@@ -187,7 +187,7 @@ class TableBody extends Component {
         onRowMouseOut={ this.handleRowMouseOut }
         onSelectRow={ this.handleSelectRow }
         onExpandRow={ this.handleClickCell }
-        unselectableRow={ disable }
+        unselecCardWrapperHorizontal={ disable }
         style={ trStyle }
         dbClickToEdit={ cellEdit.mode === Const.CELL_EDIT_DBCLICK } >
         { this.props.expandColumnOptions.expandColumnVisible &&
@@ -197,8 +197,8 @@ class TableBody extends Component {
         { this.props.expandColumnOptions.expandColumnVisible &&
             !this.props.expandColumnOptions.expandColumnBeforeSelectColumn &&
             expandedRowColumn }
-        { tableColumns }
-      </TableRow> ];
+        { CardWrapperVerticals }
+      </CardWrapperHorizontal> ];
 
       if (haveExpandContent) {
         const expandBodyClass = Utils.isFunction(this.props.expandBodyClass) ?
@@ -220,18 +220,18 @@ class TableBody extends Component {
       return (result);
     }, this);
 
-    if (tableRows.length === 0 && !this.props.withoutNoDataText) {
+    if (CardWrapperHorizontals.length === 0 && !this.props.withoutNoDataText) {
       const colSpan = this.props.columns.filter(c => !c.hidden).length
         + ((isSelectRowDefined && !this.props.selectRow.hideSelectColumn) ? 1 : 0)
         + (this.props.expandColumnOptions.expandColumnVisible ? 1 : 0);
-      tableRows = [
-        <TableRow key='##table-empty##' style={ trStyle }>
-          <td data-toggle='collapse'
+      CardWrapperHorizontals = [
+        <CardWrapperHorizontal key='##table-empty##' style={ trStyle }>
+          <div data-toggle='collapse'
               colSpan={ colSpan }
               className='react-bs-table-no-data'>
               { this.props.noDataText || Const.NO_DATA_TEXT }
-          </td>
-        </TableRow>
+          </div>
+        </CardWrapperHorizontal>
       ];
     }
 
@@ -239,12 +239,12 @@ class TableBody extends Component {
       <div ref='container'
         className={ classSet('react-bs-container-body', this.props.bodyContainerClass) }
         style={ this.props.style }>
-        <table className={ tableClasses }>
+        <div className={ tableClasses }>
           { React.cloneElement(tableHeader, { ref: 'header' }) }
-          <tbody ref='tbody'>
-            { tableRows }
-          </tbody>
-        </table>
+          <div ref='tbody'>
+            { CardWrapperHorizontals }
+          </div>
+        </div>
       </div>
     );
   }
@@ -515,7 +515,7 @@ class TableBody extends Component {
     return this.refs.header.childNodes;
   }
 }
-TableBody.propTypes = {
+CardContainer.propTypes = {
   version: PropTypes.string,
   data: PropTypes.array,
   columns: PropTypes.array,
@@ -531,7 +531,7 @@ TableBody.propTypes = {
   noDataText: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
   withoutNoDataText: PropTypes.bool,
   style: PropTypes.object,
-  tableBodyClass: PropTypes.string,
+  CardContainerClass: PropTypes.string,
   bodyContainerClass: PropTypes.string,
   expandableRow: PropTypes.func,
   expandComponent: PropTypes.func,
@@ -549,4 +549,4 @@ TableBody.propTypes = {
   onNavigateCell: PropTypes.func,
   withoutTabIndex: PropTypes.bool
 };
-export default TableBody;
+export default CardContainer;

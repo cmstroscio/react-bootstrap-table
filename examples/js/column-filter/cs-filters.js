@@ -6,15 +6,16 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 const products = [];
 
 const qualityType = {
-  0: 'alight',
-  1: 'bad',
-  2: 'unknown'
+  0: 'Backup and Recovery',
+  1: 'Big Data',
+  2: 'Converged Infrastructure'
 };
 
 const testType = {
   0: 'Healthcare',
-  1: 'Education',
-  2: 'Cloud/Hosting'
+  1: 'Cloud/Hosting',
+  2: 'Education',
+  3: 'Automotive'
 };
 
 function addProducts(quantity) {
@@ -28,7 +29,7 @@ function addProducts(quantity) {
       id: id,
       name: 'Item name ' + id,
       quality: i % 3,
-      test: i % 3,
+      test: i % 4,
       price: Math.floor((Math.random() * 100) + 1),
       inStockDate: date
     });
@@ -71,7 +72,7 @@ const dateFilterStyle = {
   }
 };
 
-export default class FilterStyle extends React.Component {
+export default class CsFilters extends React.Component {
   render() {
     return (
       <BootstrapTable ref='table' pagination data={ products }>
@@ -79,8 +80,8 @@ export default class FilterStyle extends React.Component {
           Product ID
         </TableHeaderColumn>
         <TableHeaderColumn ref='name1' dataField='name' filter={ { type: 'TextFilter', style: nameFilterStyle } }>Product Name</TableHeaderColumn>
-        <TableHeaderColumn ref='quality' dataField='quality' filter={ { type: 'SelectFilter', options: qualityType, style: qualityFilterStyle } } dataFormat={ enumFormatter } formatExtraData={ qualityType }>Product Quality</TableHeaderColumn>
-        <TableHeaderColumn ref='test' dataField='test' filter={ { type: 'SelectFilter', options: testType, style: qualityFilterStyle } } dataFormat={ enumFormatter } formatExtraData={ testType }>Product Test</TableHeaderColumn>
+        <TableHeaderColumn ref='quality' dataField='quality' filter={ { type: 'SelectFilter', options: qualityType, style: qualityFilterStyle } } dataFormat={ enumFormatter } formatExtraData={ qualityType }>Solutions</TableHeaderColumn>
+        <TableHeaderColumn ref='test' dataField='test' filter={ { type: 'SelectFilter', options: testType, style: qualityFilterStyle } } dataFormat={ enumFormatter } formatExtraData={ testType }>Industry</TableHeaderColumn>
       </BootstrapTable>
     );
   }

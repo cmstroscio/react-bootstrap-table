@@ -4,7 +4,7 @@ import TextFilter from './text-filter';
 import TextFilterWithDefaultValue from './text-filter-with-default-value';
 import TextFilterWithCondition from './text-filter-with-eq-condition';
 import ProgrammaticallyTextFilter from './text-filter-programmatically';
-import FilterStyle from './filter-style';
+import CsFilters from './cs-filters';
 import RegexFilter from './regex-filter';
 import ProgrammaticallyRegexFilter from './regex-filter-programmatically';
 import SelectFilter from './select-filter';
@@ -272,7 +272,7 @@ class Demo extends React.Component {
                     <div className='panel-heading'>Filter Style</div>
                     <div className='panel-body'>
                         <h5>Source in /examples/js/column-filter/filter-style.js</h5>
-                        <FilterStyle />
+                        <CsFilters />
                     </div>
                 </div>
             </div>

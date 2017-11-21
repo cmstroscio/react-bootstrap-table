@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import Const from './Const';
 import Util from './util';
 
-class TableColumn extends Component {
+class CardWrapperVertical extends Component {
 
   constructor(props) {
     super(props);
@@ -155,16 +155,16 @@ class TableColumn extends Component {
     const attr = {};
     if (!withoutTabIndex) attr.tabIndex = tabIndex;
     return (
-      <td { ...attr } style={ tdStyle }
+      <section { ...attr } style={ tdStyle }
           title={ columnTitle }
           className={ className }
           { ...opts } { ...attrs }>
         { typeof children === 'boolean' ? children.toString() : children }
-      </td>
+      </section>
     );
   }
 }
-TableColumn.propTypes = {
+CardWrapperVertical.propTypes = {
   rIndex: PropTypes.number,
   dataAlign: PropTypes.string,
   hidden: PropTypes.bool,
@@ -183,7 +183,7 @@ TableColumn.propTypes = {
   row: PropTypes.any  /* only used on custom styling for navigation */
 };
 
-TableColumn.defaultProps = {
+CardWrapperVertical.defaultProps = {
   dataAlign: 'left',
   withoutTabIndex: false,
   hidden: false,
@@ -191,4 +191,4 @@ TableColumn.defaultProps = {
   isFocus: false,
   keyBoardNav: false
 };
-export default TableColumn;
+export default CardWrapperVertical;
